@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{74127C2A-F1AD-4795-A688-00F807BEA0FE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MigrationTool.Services</RootNamespace>
+    <AssemblyName>MigrationTool.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <Import Project="..\..\ProjectConfigurations.targets" />
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml">
+      <HintPath>..\..\.packages\OpenXMLSDK-MOT.2.6.0.0\lib\DocumentFormat.OpenXml.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FirebirdSql.Data.FirebirdClient">
+      <HintPath>..\..\.packages\FirebirdSql.Data.FirebirdClient.5.1.1\lib\net45\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\.packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\.packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\.packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OpenXmlPowerTools">
+      <HintPath>..\..\.packages\OpenXmlPowerTools.4.2\lib\OpenXmlPowerTools.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="RestSharp, Version=105.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\.packages\RestSharp.105.1.0\lib\net45\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Packaging">
+      <HintPath>..\..\.packages\OpenXMLSDK-MOT.2.6.0.0\lib\System.IO.Packaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\.packages\System.Management.Automation.6.1.7601.17515\lib\net45\System.Management.Automation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfoCommon.cs">
+      <Link>Properties\AssemblyInfoCommon.cs</Link>
+    </Compile>
+    <Compile Include="Helpers\DbHelper.cs" />
+    <Compile Include="Entities\ApiResponse.cs" />
+    <Compile Include="Entities\Credentials.cs" />
+    <Compile Include="Entities\EntityMigrationStatus.cs" />
+    <Compile Include="Entities\Genie\GenieAntenatalVisit.cs" />
+    <Compile Include="Entities\Genie\GenieDocument.cs" />
+    <Compile Include="Entities\Genie\GenieEmployer.cs" />
+    <Compile Include="Entities\Genie\GenieComplication.cs" />
+    <Compile Include="Entities\Genie\GenieConsultProblem.cs" />
+    <Compile Include="Entities\Genie\GenieCurrentProblem.cs" />
+    <Compile Include="Entities\Genie\GenieDrug.cs" />
+    <Compile Include="Entities\Genie\GenieIncomingLetter.cs" />
+    <Compile Include="Entities\Genie\GenieInterestedParty.cs" />
+    <Compile Include="Entities\Genie\GenieObstetricHistory.cs" />
+    <Compile Include="Entities\Genie\GenieOpReport.cs" />
+    <Compile Include="Entities\Genie\GenieAccountHolder.cs" />
+    <Compile Include="Entities\Genie\GenieAllergy.cs" />
+    <Compile Include="Entities\Genie\GenieAppointment.cs" />
+    <Compile Include="Entities\Genie\GenieAppointmentType.cs" />
+    <Compile Include="Entities\Genie\GenieChecklist.cs" />
+    <Compile Include="Entities\Genie\GenieChecklistField.cs" />
+    <Compile Include="Entities\Genie\GenieConsult.cs" />
+    <Compile Include="Entities\Genie\GenieContact.cs" />
+    <Compile Include="Entities\Genie\GenieDownloadedResult.cs" />
+    <Compile Include="Entities\Genie\GenieGraphic.cs" />
+    <Compile Include="Entities\Genie\GenieMeasurement.cs" />
+    <Compile Include="Entities\Genie\GenieOutgoingLetter.cs" />
+    <Compile Include="Entities\Genie\GeniePastHistory.cs" />
+    <Compile Include="Entities\Genie\GeniePatient.cs" />
+    <Compile Include="Entities\Genie\GeniePregnancy.cs" />
+    <Compile Include="Entities\Genie\GenieQuoteItem.cs" />
+    <Compile Include="Entities\Genie\GenieReferral.cs" />
+    <Compile Include="Entities\Genie\GenieScript.cs" />
+    <Compile Include="Entities\Genie\GenieTask.cs" />
+    <Compile Include="Entities\Genie\GenieRecall.cs" />
+    <Compile Include="Entities\Genie\GenieUser.cs" />
+    <Compile Include="Entities\Genie\GenieVaccination.cs" />
+    <Compile Include="Entities\EntityMigrationContext.cs" />
+    <Compile Include="Entities\Genie\GenieWorkCoverClaim.cs" />
+    <Compile Include="Entities\MedicalDirector\MedicalDirectorAddressBookEntry.cs" />
+    <Compile Include="Entities\MedicalDirector\MedicalDirectorLanguage.cs" />
+    <Compile Include="Entities\MedicalDirector\MedicalDirectorCountry.cs" />
+    <Compile Include="Entities\MedicalDirector\MedicalDirectorEmergencyContact.cs" />
+    <Compile Include="Entities\MedicalDirector\MedicalDirectorAhiaTrade.cs" />
+    <Compile Include="Entities\MedicalDirector\MedicalDirectorNextOfKin.cs" />
+    <Compile Include="Entities\MedicalDirector\MedicalDirectorPatientClinical.cs" />
+    <Compile Include="Entities\MedicalDirector\MedicalDirectorPatient.cs" />
+    <Compile Include="Entities\MedicalDirector\MedicalDirectorReferral.cs" />
+    <Compile Include="Entities\MedicalDirector\MedicalDirectorResource.cs" />
+    <Compile Include="Entities\MigrationContext.cs" />
+    <Compile Include="Entities\MigrationArgs.cs" />
+    <Compile Include="Entities\MigrationFileContext.cs" />
+    <Compile Include="Entities\MigrationStage.cs" />
+    <Compile Include="Entities\ParsedName.cs" />
+    <Compile Include="Entities\Shexie\ISuburbInfo.cs" />
+    <Compile Include="Entities\Shexie\ShexieAnalysis.cs" />
+    <Compile Include="Entities\Shexie\ShexiePatientHistory.cs" />
+    <Compile Include="Entities\Shexie\ShexieHospitalList.cs" />
+    <Compile Include="Entities\Shexie\ShexieInterestedParty.cs" />
+    <Compile Include="Entities\Shexie\ShexieStatistic.cs" />
+    <Compile Include="Entities\Shexie\ShexieDrug.cs" />
+    <Compile Include="Entities\Shexie\ShexieFeeEstimateItem.cs" />
+    <Compile Include="Entities\Shexie\ShexieLaboratoryResult.cs" />
+    <Compile Include="Entities\Shexie\ShexieAlarm.cs" />
+    <Compile Include="Entities\Shexie\ShexieAppointment.cs" />
+    <Compile Include="Entities\Shexie\ShexieAppointmentType.cs" />
+    <Compile Include="Entities\Shexie\ShexieAttachment.cs" />
+    <Compile Include="Entities\Shexie\ShexieCompany.cs" />
+    <Compile Include="Entities\Shexie\ShexieContact.cs" />
+    <Compile Include="Entities\Shexie\ShexieCountry.cs" />
+    <Compile Include="Entities\Shexie\ShexieKin.cs" />
+    <Compile Include="Entities\Shexie\ShexieLaboratoryResultType.cs" />
+    <Compile Include="Entities\Shexie\ShexieFeeEstimate.cs" />
+    <Compile Include="Entities\Shexie\ShexieOpReport.cs" />
+    <Compile Include="Entities\Shexie\ShexiePatient.cs" />
+    <Compile Include="Entities\Shexie\ShexiePatientSecondary.cs" />
+    <Compile Include="Entities\Shexie\ShexiePostcode.cs" />
+    <Compile Include="Entities\Shexie\ShexieProvider.cs" />
+    <Compile Include="Entities\Shexie\ShexieRecall.cs" />
+    <Compile Include="Entities\Shexie\ShexieReferral.cs" />
+    <Compile Include="Entities\Shexie\ShexieScript.cs" />
+    <Compile Include="Entities\Shexie\ShexieUser.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedWorkCoverClaim.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedChecklist.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedImageDocument.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedLaboratoryResult.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedAttachment.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedRecall.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedTask.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedTemplateControl.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedAppointment.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedAppointmentType.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedAccountPayer.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedEncounterNote.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedDrug.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedInterestedParty.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedLetter.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedPatientProblem.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedScript.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedVaccination.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedChecklistTemplate.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedPatient.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedReferral.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedContact.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedEncounter.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedAllergy.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedMeasurement.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedAccountHolder.cs" />
+    <Compile Include="Entities\Zedmed\ZedmedUser.cs" />
+    <Compile Include="Helpers\C2cXml\C2cXmlMigrationHelper.cs" />
+    <Compile Include="Helpers\CommonExtensions.cs" />
+    <Compile Include="Helpers\DataReaderExtensions.cs" />
+    <Compile Include="Helpers\DictionaryExtensions.cs" />
+    <Compile Include="Helpers\EnumerableExtensions.cs" />
+    <Compile Include="Helpers\Genie\GenieDataReaderReadExtensions.cs" />
+    <Compile Include="Helpers\Genie\GenieMigrationHelper.cs" />
+    <Compile Include="Helpers\Genie\GenieXmlReadExtensions.cs" />
+    <Compile Include="Helpers\MedicalDirector\MedicalDirectorMigrationHelper.cs" />
+    <Compile Include="Helpers\MedicalDirector\MedicalDirectorDataReaderReadExtensions.cs" />
+    <Compile Include="Helpers\MigrationHelper.cs" />
+    <Compile Include="Helpers\NetworkHelper.cs" />
+    <Compile Include="Helpers\Shexie\ShexieMigrationHelper.cs" />
+    <Compile Include="Helpers\StorageHelper.cs" />
+    <Compile Include="Helpers\StreamHelper.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
+    <Compile Include="Helpers\Text\HtmlFromXamlConverter.cs" />
+    <Compile Include="Helpers\Text\PitToHtmlConverter.cs" />
+    <Compile Include="Helpers\Text\RtfToHtmlConverter.cs" />
+    <Compile Include="Helpers\Text\RtfToPlainTextConverter.cs" />
+    <Compile Include="Helpers\Text\WordToHtmlConverter.cs" />
+    <Compile Include="Helpers\TimeExtensions.cs" />
+    <Compile Include="Helpers\XmlExtensions.cs" />
+    <Compile Include="Helpers\Zedmed\ZedmedDataReaderReadExtensions.cs" />
+    <Compile Include="Helpers\Zedmed\ZedmedMigrationHelper.cs" />
+    <Compile Include="Implementations\AppSettingsService.cs" />
+    <Compile Include="Implementations\C2cXml\C2cXmlEntitiesContainer.cs" />
+    <Compile Include="Implementations\C2cXml\C2cXmlSettingsService.cs" />
+    <Compile Include="Implementations\C2cXml\C2cXmlValidationService.cs" />
+    <Compile Include="Implementations\EntitiesMemoryService.cs" />
+    <Compile Include="Implementations\MedicalDirector\MedicalDirectorEntitiesContainer.cs" />
+    <Compile Include="Implementations\MedicalDirector\MedicalDirectorRepository.cs" />
+    <Compile Include="Implementations\MedicalDirector\MedicalDirectorSettingsService.cs" />
+    <Compile Include="Implementations\MigrationDataRoot.cs" />
+    <Compile Include="Implementations\AuthenticationService.cs" />
+    <Compile Include="Implementations\MigrationStatusService.cs" />
+    <Compile Include="Implementations\MigrationSourceService.cs" />
+    <Compile Include="Implementations\PostProcessingService.cs" />
+    <Compile Include="Implementations\Shexie\ShexieEntitiesContainer.cs" />
+    <Compile Include="Implementations\Genie\GenieEntitiesContainer.cs" />
+    <Compile Include="Implementations\SelectedOptionsSettingsService.cs" />
+    <Compile Include="Implementations\SettingsServiceBase.cs" />
+    <Compile Include="Implementations\Shexie\ShexieSettingsService.cs" />
+    <Compile Include="Implementations\Shexie\ShexieRepository.cs" />
+    <Compile Include="Implementations\TextConverter.cs" />
+    <Compile Include="Implementations\Genie\GenieRepository.cs" />
+    <Compile Include="Implementations\MigrationService.cs" />
+    <Compile Include="Implementations\Genie\GenieSettingsService.cs" />
+    <Compile Include="Implementations\ValidationService.cs" />
+    <Compile Include="Implementations\Zedmed\ZedmedEntitiesContainer.cs" />
+    <Compile Include="Implementations\Zedmed\ZedmedRepository.cs" />
+    <Compile Include="Implementations\Zedmed\ZedmedSettingsService.cs" />
+    <Compile Include="Interfaces\C2cXml\IC2cXmlValidationService.cs" />
+    <Compile Include="Interfaces\C2cXml\IC2cXmlEntitiesContainer.cs" />
+    <Compile Include="Interfaces\C2cXml\IC2cXmlSettingsService.cs" />
+    <Compile Include="Interfaces\Genie\IGenieConnectionTestService.cs" />
+    <Compile Include="Interfaces\Genie\IGenieEntitiesContainer.cs" />
+    <Compile Include="Interfaces\IAppSettingsService.cs" />
+    <Compile Include="Interfaces\Genie\IGenieRepository.cs" />
+    <Compile Include="Interfaces\IEntitiesContainer.cs" />
+    <Compile Include="Interfaces\IAuthenticationService.cs" />
+    <Compile Include="Interfaces\IEntitiesMemoryService.cs" />
+    <Compile Include="Interfaces\IMigrationStatusService.cs" />
+    <Compile Include="Interfaces\IPostProcessingService.cs" />
+    <Compile Include="Interfaces\ISelectedOptionsSettingsService.cs" />
+    <Compile Include="Interfaces\ISupportedEntitiesInfoProvider.cs" />
+    <Compile Include="Interfaces\ITextConverter.cs" />
+    <Compile Include="Interfaces\Genie\IGenieSettingsService.cs" />
+    <Compile Include="Interfaces\IMigrationService.cs" />
+    <Compile Include="Interfaces\IMigrationDataProcessor.cs" />
+    <Compile Include="Interfaces\IMigrationSourceService.cs" />
+    <Compile Include="Interfaces\IValidationService.cs" />
+    <Compile Include="Interfaces\MedicalDirector\IMedicalDirectorConnectionTestService.cs" />
+    <Compile Include="Interfaces\MedicalDirector\IMedicalDirectorEntitiesContainer.cs" />
+    <Compile Include="Interfaces\MedicalDirector\IMedicalDirectorRepository.cs" />
+    <Compile Include="Interfaces\MedicalDirector\IMedicalDirectorSettingsService.cs" />
+    <Compile Include="Interfaces\Shexie\IShexieEntitiesContainer.cs" />
+    <Compile Include="Interfaces\Shexie\IShexieSettingsService.cs" />
+    <Compile Include="Interfaces\Shexie\IShexieRepository.cs" />
+    <Compile Include="Interfaces\Zedmed\IZedmedConnectionTestService.cs" />
+    <Compile Include="Interfaces\Zedmed\IZedmedEntitiesContainer.cs" />
+    <Compile Include="Interfaces\Zedmed\IZedmedRepository.cs" />
+    <Compile Include="Interfaces\Zedmed\IZedmedSettingsService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Web\Siberia.Migration.Entities\Siberia.Migration.Entities.csproj">
+      <Project>{e260f573-14e4-49ea-a013-96eff2d06f81}</Project>
+      <Name>Siberia.Migration.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\Siberia.Migration.Serialization\Siberia.Migration.Serialization.csproj">
+      <Project>{fc05375a-6a64-4bd4-bd24-3fe7d8eaae39}</Project>
+      <Name>Siberia.Migration.Serialization</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\Common.targets" />
+</Project>

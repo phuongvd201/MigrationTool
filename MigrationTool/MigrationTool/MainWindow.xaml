@@ -1,0 +1,106 @@
+﻿<Window x:Class="MigrationTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:MigrationTool.ViewModels.Interfaces;assembly=MigrationTool.ViewModels"
+        xmlns:v="clr-namespace:MigrationTool.Views"
+        Title="{Binding MainWindowViewModel.Version.Value, Converter={StaticResource ResourceKey=AppNameConverter}}"
+        Height="768"
+        MinHeight="768"
+        Width="500"
+        MinWidth="500"
+        Icon="./Resources/c2c-ico-32.ico"
+        ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen" DataContext="{StaticResource CompositionRoot}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="Login" DataType="i:ILoginViewModel">
+                <v:LoginView/>
+            </DataTemplate>
+            <DataTemplate x:Key="SourceSystemSelection" DataType="i:ISourceSystemOptionViewModel">
+                <v:SourceSystemSelectionView/>
+            </DataTemplate>
+            <DataTemplate x:Key="GenieOptions" DataType="i:IGenieOptionsViewModel">
+                <v:GenieOptionsView/>
+            </DataTemplate>
+            <DataTemplate x:Key="ShexieOptions" DataType="i:IShexieOptionsViewModel">
+                <v:ShexieOptionsView/>
+            </DataTemplate>
+            <DataTemplate x:Key="C2cXmlOptions" DataType="i:IC2cXmlOptionsViewModel">
+                <v:C2cXmlOptionsView/>
+            </DataTemplate>
+            <DataTemplate x:Key="ZedmedOptions" DataType="i:IZedmedOptionsViewModel">
+                <v:ZedmedOptionsView/>
+            </DataTemplate>
+            <DataTemplate x:Key="MedicalDirectorOptions" DataType="i:IMedicalDirectorOptionsViewModel">
+                <v:MedicalDirectorOptionsView/>
+            </DataTemplate>
+            <DataTemplate x:Key="C2cXmlValidation" DataType="i:IC2cXmlValidationViewModel">
+                <v:C2cXmlValidationView/>
+            </DataTemplate>
+            <DataTemplate x:Key="MigrationOptions" DataType="i:IMigrationOptionsViewModel">
+                <v:MigrationOptionsView/>
+            </DataTemplate>
+            <DataTemplate x:Key="MigrationProgress" DataType="i:IMigrationProgressViewModel">
+                <v:MigrationProgressView/>
+            </DataTemplate>
+            <DataTemplate x:Key="MigrationResult" DataType="i:IMigrationProgressViewModel">
+                <v:MigrationResultView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Window.Resources>
+    <ContentControl DataContext="{Binding MainWindowViewModel}" Margin="20" Background="White" BorderThickness="0" IsTabStop="False" Focusable="False">
+        <ContentControl.Style>
+            <Style TargetType="ContentControl">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value, Mode=OneWay}" Value="NotLoggedIn">
+                        <Setter Property="ContentTemplate" Value="{StaticResource Login}" />
+                        <Setter Property="Content" Value="{Binding Login.Value}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value}" Value="LoginInProgress">
+                        <Setter Property="ContentTemplate" Value="{StaticResource Login}" />
+                        <Setter Property="Content" Value="{Binding Login.Value}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value}" Value="SourceSystemSelection">
+                        <Setter Property="ContentTemplate" Value="{StaticResource SourceSystemSelection}" />
+                        <Setter Property="Content" Value="{Binding SourceSystemSelection.Value}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value}" Value="GenieOptions">
+                        <Setter Property="ContentTemplate" Value="{StaticResource GenieOptions}" />
+                        <Setter Property="Content" Value="{Binding GenieOptions.Value}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value}" Value="ShexieOptions">
+                        <Setter Property="ContentTemplate" Value="{StaticResource ShexieOptions}" />
+                        <Setter Property="Content" Value="{Binding ShexieOptions.Value}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value}" Value="C2cXmlOptions">
+                        <Setter Property="ContentTemplate" Value="{StaticResource C2cXmlOptions}" />
+                        <Setter Property="Content" Value="{Binding C2cXmlOptions.Value}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value}" Value="ZedmedOptions">
+                        <Setter Property="ContentTemplate" Value="{StaticResource ZedmedOptions}" />
+                        <Setter Property="Content" Value="{Binding ZedmedOptions.Value}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value}" Value="MedicalDirectorOptions">
+                        <Setter Property="ContentTemplate" Value="{StaticResource MedicalDirectorOptions}" />
+                        <Setter Property="Content" Value="{Binding MedicalDirectorOptions.Value}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value}" Value="C2cXmlValidation">
+                        <Setter Property="ContentTemplate" Value="{StaticResource C2cXmlValidation}" />
+                        <Setter Property="Content" Value="{Binding C2cXmlValidation.Value}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value}" Value="MigrationOptions">
+                        <Setter Property="ContentTemplate" Value="{StaticResource MigrationOptions}" />
+                        <Setter Property="Content" Value="{Binding MigrationOptions.Value}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value}" Value="MigrationInProgress">
+                        <Setter Property="ContentTemplate" Value="{StaticResource MigrationProgress}" />
+                        <Setter Property="Content" Value="{Binding MigrationProgress.Value}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding ApplicationState.State.Value}" Value="MigrationResult">
+                        <Setter Property="ContentTemplate" Value="{StaticResource MigrationResult}" />
+                        <Setter Property="Content" Value="{Binding MigrationProgress.Value}"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ContentControl.Style>
+    </ContentControl>
+</Window>

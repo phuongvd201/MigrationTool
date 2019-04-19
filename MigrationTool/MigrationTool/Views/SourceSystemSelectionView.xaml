@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="MigrationTool.Views.SourceSystemSelectionView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      mc:Ignorable="d"
+      xmlns:mockViewModels="clr-namespace:MigrationTool.MockViewModels"
+      d:DesignHeight="540"
+      d:DesignWidth="450"
+      Style="{StaticResource ResourceKey=ViewContentAreaStyle}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <mockViewModels:MockSourceSystemSelectionViewModel x:Key="MockSourceSystemSelectionViewModel"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid d:DataContext="{Binding Source={StaticResource MockSourceSystemSelectionViewModel}}">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding SkipIfSingleCommand.Value}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="70"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="1" Grid.Row="0" Content="Migration Source Systems" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FF473F3F" FontSize="22" FontFamily="Arial"/>
+
+        <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding SourceSystemOptions.Value}" Focusable="False">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="20" />
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="0" Command="{Binding Command}" VerticalAlignment="Top" Content="{Binding SourceSystem, Converter={StaticResource ResourceKey=SourceSystemNameConverter}}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource ResourceKey=DefaultButtonStyle}" />
+                            </Button.Style>
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

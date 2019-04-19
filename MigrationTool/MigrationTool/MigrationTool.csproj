@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{99AD3996-4FF8-4350-A335-39B4C3AD5B15}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MigrationTool</RootNamespace>
+    <AssemblyName>MigrationTool</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\c2c-ico-32.ico</ApplicationIcon>
+  </PropertyGroup>
+  <Import Project="..\..\ProjectConfigurations.targets" />
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\.packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\.packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FirebirdSql.Data.FirebirdClient">
+      <HintPath>..\..\.packages\FirebirdSql.Data.FirebirdClient.5.1.1\lib\net45\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\.packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.5.8.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\.packages\Moq.4.5.8\lib\net45\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Property.Callbacks, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\.packages\PropertyFramework.3.0.9\lib\net45\Property.Callbacks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Property.Chains, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\.packages\PropertyFramework.3.0.9\lib\net45\Property.Chains.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Property.Core, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\.packages\PropertyFramework.3.0.9\lib\net45\Property.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Property.Windows, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>True</SpecificVersion>
+      <HintPath>..\..\.packages\PropertyFramework.3.0.9\lib\net45\Property.Windows.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="CompositionRoot.cs" />
+    <Compile Include="Controls\SelectDirectoryDialog.cs" />
+    <Compile Include="Controls\SelectFileDialog.cs" />
+    <Compile Include="Controls\SelectStringDialog.xaml.cs">
+      <DependentUpon>SelectStringDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\AppNameConverter.cs" />
+    <Compile Include="Converters\SourceSystemNameConverter.cs" />
+    <Compile Include="Converters\EntityNameConverter.cs" />
+    <Compile Include="Converters\PasswordFuncConverter.cs" />
+    <Compile Include="MockViewModels\MockC2cXmlOptionsViewModel.cs" />
+    <Compile Include="MockViewModels\MockC2cXmlValidationViewModel.cs" />
+    <Compile Include="MockViewModels\MockGenieOptionsViewModel.cs" />
+    <Compile Include="MockViewModels\MockLoginViewModel.cs" />
+    <Compile Include="MockViewModels\MockMigrationOptionsViewModel.cs" />
+    <Compile Include="MockViewModels\MockMigrationProgressViewModel.cs" />
+    <Compile Include="MockViewModels\MockShexieOptionsViewModel.cs" />
+    <Compile Include="MockViewModels\MockSourceSystemSelectionViewModel.cs" />
+    <Compile Include="MockViewModels\MockMedicalDirectorOptionsViewModel.cs" />
+    <Compile Include="MockViewModels\MockZedmedOptionsViewModel.cs" />
+    <Compile Include="Views\SourceSystemSelectionView.xaml.cs">
+      <DependentUpon>SourceSystemSelectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShexieOptionsView.xaml.cs">
+      <DependentUpon>ShexieOptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MigrationResultView.xaml.cs">
+      <DependentUpon>MigrationResultView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MigrationProgressView.xaml.cs">
+      <DependentUpon>MigrationProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MigrationOptionsView.xaml.cs">
+      <DependentUpon>MigrationOptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GenieOptionsView.xaml.cs">
+      <DependentUpon>GenieOptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\C2cXmlValidationView.xaml.cs">
+      <DependentUpon>C2cXmlValidationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\C2cXmlOptionsView.xaml.cs">
+      <DependentUpon>C2cXmlOptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MedicalDirectorOptionsView.xaml.cs">
+      <DependentUpon>MedicalDirectorOptionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ZedmedOptionsView.xaml.cs">
+      <DependentUpon>ZedmedOptionsView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\SelectStringDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\SourceSystemSelectionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ShexieOptionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MigrationResultView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MigrationProgressView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MigrationOptionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LoginView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GenieOptionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\C2cXmlValidationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\C2cXmlOptionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MedicalDirectorOptionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ZedmedOptionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\AssemblyInfoCommon.cs">
+      <Link>Properties\AssemblyInfoCommon.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="packages.config" />
+    <AppDesigner Include="Properties\" />
+    <Content Include="Resources\AccessDatabaseEngine_x64.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="[Configuration]\Configs\App.config" />
+    <None Include="[Configuration]\Transforms\Debug\.gitignore" />
+    <None Include="[Configuration]\Transforms\Debug\App.transform.config" />
+    <None Include="[Configuration]\Transforms\Production1\App.transform.config" />
+    <None Include="[Configuration]\Transforms\Production2\App.transform.config" />
+    <None Include="[Configuration]\Transforms\[Template]\App.transform.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Web\Siberia.Migration.Entities\Siberia.Migration.Entities.csproj">
+      <Project>{e260f573-14e4-49ea-a013-96eff2d06f81}</Project>
+      <Name>Siberia.Migration.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MigrationTool.Integration\MigrationTool.Integration.csproj">
+      <Project>{ef8f74bf-43ac-43ea-9609-a8ca08fedfde}</Project>
+      <Name>MigrationTool.Integration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MigrationTool.Services\MigrationTool.Services.csproj">
+      <Project>{74127c2a-f1ad-4795-a688-00f807bea0fe}</Project>
+      <Name>MigrationTool.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MigrationTool.ViewModels\MigrationTool.ViewModels.csproj">
+      <Project>{33c24bba-60b0-48e6-aaba-350413bfe578}</Project>
+      <Name>MigrationTool.ViewModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bg-logo.png" />
+    <Resource Include="Resources\c2c-ico-32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="Resources\4D ODBC Driver v14.4 Windows 64-bit.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\AccessDatabaseEngine_x64.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\Common.targets" />
+  <Target Name="BeforeBuild" DependsOnTargets="TransformConfigs">
+  </Target>
+  <Target Name="AfterBuild" DependsOnTargets="CleanupReplaces">
+  </Target>
+</Project>

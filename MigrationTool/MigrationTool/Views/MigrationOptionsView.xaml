@@ -1,0 +1,164 @@
+﻿<UserControl x:Class="MigrationTool.Views.MigrationOptionsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      mc:Ignorable="d"
+      xmlns:mockViewModels="clr-namespace:MigrationTool.MockViewModels"
+      d:DesignHeight="540"
+      d:DesignWidth="450"
+      Style="{StaticResource ResourceKey=ViewContentAreaStyle}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <mockViewModels:MockMigrationOptionsViewModel x:Key="MockMigrationOptionsViewModel"/>
+            <Style TargetType="FrameworkElement" x:Key="ShowWhenLoading">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Loading.Value}" Value="False">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Loading.Value}" Value="True">
+                        <Setter Property="Visibility" Value="Visible" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="FrameworkElement" x:Key="ShowAfterLoading">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Loading.Value}" Value="True">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Loading.Value}" Value="False">
+                        <Setter Property="Visibility" Value="Visible" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid d:DataContext="{Binding Source={StaticResource MockMigrationOptionsViewModel}}">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding RefreshEntityOptionsCommand.Value}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+        <Grid Style="{Binding Source={StaticResource ShowAfterLoading}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="10" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+
+                <RowDefinition Height="20" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="25" />
+                <RowDefinition Height="10" />
+
+                <RowDefinition Height="20" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="35" />
+
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="1" Grid.Row="0" Content="Migration Options" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FF473F3F" FontSize="22" FontFamily="Arial"/>
+
+            <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" TextAlignment="Center">
+                Please, enter or select a name to identify the source of migrated data.<LineBreak/> 
+                <Bold> Note: data records migrated with differing source names will be regarded 
+                as unrelated even if their IDs in the source systems match.</Bold>
+            </TextBlock>
+            <ComboBox Grid.Column="1" Grid.Row="3" Name="SourceNameComboBox" IsEditable="True" ItemsSource="{Binding PreviousSourceNames.Value}" Text="{Binding SelectedSourceName.Input, UpdateSourceTrigger=PropertyChanged,  Mode=TwoWay, NotifyOnValidationError=True}"/>
+            <ItemsControl Grid.Column="1" Grid.Row="5" ItemsSource="{Binding ElementName=SourceNameComboBox, Path=(Validation.Errors)}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding ErrorContent}" Foreground="Red"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <TextBlock Grid.Column="1" Grid.Row="7">Start Date:</TextBlock>
+            <DatePicker Grid.Column="1" Grid.Row="9" SelectedDate="{Binding MigrationStartDateTime.Input, Mode=TwoWay}"/>
+
+            <TextBlock Grid.Column="1" Grid.Row="11">Entities:</TextBlock>
+            <ItemsControl Grid.Column="1" Grid.Row="12" ItemsSource="{Binding ElementName=EntitiesList, Path=(Validation.Errors)}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Justify" Text="{Binding ErrorContent}" Foreground="Red"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <CheckBox Grid.Column="1" Grid.Row="14" Content="Select all" IsChecked="{Binding SelectAll.Input, Mode=TwoWay}"/>
+            <ScrollViewer Grid.Column="1" Grid.Row="16" Name="EntitiesList" DataContext="{Binding MigrationEntityOptions.Input}" VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding}" Padding="5 5 5 5">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <CheckBox Content="{Binding Value, Converter={StaticResource ResourceKey=EntityNameConverter}}" Tag="{Binding Value}" IsChecked="{Binding IsChecked.Input, Mode=TwoWay}" Margin="0 0 0 5" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <Grid Grid.Column="1" Grid.Row="17" VerticalAlignment="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="5"/>
+                </Grid.RowDefinitions>
+                <CheckBox Grid.Row="1" HorizontalAlignment="Center" Content="Enable parallel queries to migration data source" IsChecked="{Binding ParallelReadOption.Input, Mode=TwoWay}" Margin="0 0 0 5" />
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="18" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Command="{Binding BackCommand.Value}" Content="BACK">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource ResourceKey=DefaultButtonStyle}" />
+                    </Button.Style>
+                </Button>
+
+                <Button Grid.Column="2" IsDefault="True" Command="{Binding NextCommand.Value}" Content="MIGRATE">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource ResourceKey=PrimaryButtonStyle}" />
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </Grid>
+        <Grid Style="{Binding Source={StaticResource ShowWhenLoading}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="250" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="1" Grid.Row="0" Content="Migration Options" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FF473F3F" FontSize="22" FontFamily="Arial"/>
+
+            <TextBlock Grid.Column="1" Grid.Row="2" TextAlignment="Center">
+            Loading available migration options and data source names...
+            </TextBlock>
+            <ProgressBar Grid.Column="1" Grid.Row="4" IsIndeterminate="True" Orientation="Horizontal"/>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="MigrationTool.Views.MigrationResultView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      mc:Ignorable="d"
+      xmlns:mockViewModels="clr-namespace:MigrationTool.MockViewModels"
+      d:DesignHeight="540"
+      d:DesignWidth="450"
+      Style="{StaticResource ResourceKey=ViewContentAreaStyle}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <mockViewModels:MockMigrationProgressViewModel x:Key="MockMigrationProgressViewModel"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid d:DataContext="{Binding Source={StaticResource MockMigrationProgressViewModel}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="70"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="1" Grid.Row="0" Content="Migration Result" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FF473F3F" FontSize="22" FontFamily="Arial"/>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="WrapWithOverflow">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding MigrationResult.Value}" Value="True">
+                            <Setter Property="Text" Value="The data conversion tool has completed successfully. Please log in to the migration tab in the practice admin settings and start the migration process by pressing the start button. Once this process is complete your data will be migrated to Clinic to Cloud. Please review the log files under each category once the conversion is complete to find any errors that may be present." />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding MigrationResult.Value}" Value="False">
+                            <Setter Property="Text" Value="The data conversion tool has not completed successfully. Please review the log files in the conversion tool directory, making any adjustments needed and rerun the tool again. If you continue to have errors, please contact Clinic to Cloud customer support." />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+        <Button Grid.Column="1" Grid.Row="2" Command="{Binding ReadyCommand.Value}" Content="OK" Width="100" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource ResourceKey=PrimaryButtonStyle}" />
+            </Button.Style>
+        </Button>
+    </Grid>
+</UserControl>

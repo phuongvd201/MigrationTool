@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="MigrationTool.Views.MedicalDirectorOptionsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:controls="clr-namespace:MigrationTool.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      mc:Ignorable="d"
+      xmlns:mockViewModels="clr-namespace:MigrationTool.MockViewModels"
+      d:DesignHeight="625"
+      d:DesignWidth="450"
+      Style="{StaticResource ResourceKey=ViewContentAreaStyle}">
+  <UserControl.Resources>
+    <ResourceDictionary>
+            <mockViewModels:MockMedicalDirectorOptionsViewModel x:Key="MockMedicalDirectorOptionsViewModel"/>
+    </ResourceDictionary>
+  </UserControl.Resources>
+    <Grid d:DataContext="{Binding Source={StaticResource MockMedicalDirectorOptionsViewModel}}">
+    <i:Interaction.Triggers>
+      <i:EventTrigger EventName="Loaded">
+        <i:InvokeCommandAction Command="{Binding ReadConfigurationCommand.Value}" />
+      </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="70"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="70"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50" />
+
+      <RowDefinition Height="20" />
+      <RowDefinition Height="50" />
+      <RowDefinition Height="5" />
+      <RowDefinition Height="20" />
+      <RowDefinition Height="5" />
+      <RowDefinition Height="25" />
+      <RowDefinition Height="15" />
+      <RowDefinition Height="20" />
+      <RowDefinition Height="50" />
+        
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+        <Label Grid.Column="1" Grid.Row="0" Content="Medical Director options" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="#FF473F3F" FontSize="22" FontFamily="Arial"/>
+        <TextBlock Grid.Column="1" Grid.Row="1">Documents directory:</TextBlock>
+        <controls:SelectDirectoryDialog Grid.Column="1" Grid.Row="2" SelectedValue="{Binding DocumentsPath.Input, Mode=TwoWay}" />
+
+    <TextBlock Grid.Column="1" Grid.Row="4">Server Name:</TextBlock>
+        <TextBox Grid.Column="1" Grid.Row="6" x:Name="ServerName" Text="{Binding DatabaseServerName.Input}" />
+
+    <ItemsControl Grid.Column="1" Grid.Row="8" HorizontalAlignment="Center" ItemsSource="{Binding Errors.Value}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <TextBlock TextWrapping="Wrap" Text="{Binding}" Foreground="Red"/>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+      <ItemsControl.Style>
+        <Style TargetType="ItemsControl">
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding Errors.IsLoading}" Value="True">
+              <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Errors.IsLoading}" Value="False">
+              <Setter Property="Visibility" Value="Visible" />
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </ItemsControl.Style>
+    </ItemsControl>
+    <ProgressBar Grid.Column="1" Grid.Row="9" IsIndeterminate="True" Orientation="Horizontal" Height="10">
+      <ProgressBar.Style>
+        <Style TargetType="ProgressBar">
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding Errors.IsLoading}" Value="False">
+              <Setter Property="Visibility" Value="Collapsed" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Errors.IsLoading}" Value="True">
+              <Setter Property="Visibility" Value="Visible" />
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </ProgressBar.Style>
+    </ProgressBar>
+
+    <Grid Grid.Column="1" Grid.Row="11" VerticalAlignment="Bottom">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="100"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="100"/>
+      </Grid.ColumnDefinitions>
+
+      <Button Grid.Column="0" Command="{Binding BackCommand.Value}" Content="BACK">
+        <Button.Style>
+          <Style TargetType="Button" BasedOn="{StaticResource ResourceKey=DefaultButtonStyle}" />
+        </Button.Style>
+      </Button>
+
+      <Button Grid.Column="2"
+                    IsDefault="True" Content="NEXT"
+                    Command="{Binding NextCommand.Value}">
+        <Button.Style>
+          <Style TargetType="Button" BasedOn="{StaticResource ResourceKey=PrimaryButtonStyle}" />
+        </Button.Style>
+      </Button>
+    </Grid>
+  </Grid>
+</UserControl>
